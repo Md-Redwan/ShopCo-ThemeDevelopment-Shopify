@@ -1,0 +1,95 @@
+{{ 'beer-slider.css' | asset_url |  stylesheet_tag }}
+
+<style>
+    .page-width{
+        display: flex;
+        justify-content: center;
+        width: 80%;
+        margin: auto;
+    }
+    .beer-slider{
+        display: block;
+        width: 100%;
+    }
+    .beer-slider .image-comparison-slider__image{
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+</style>
+
+<div class="page-width">
+
+    <div id="image-comparison-{{ section.id }}"
+         class="beer-slider image-comparison-slider "
+         data-beer-label="{{ section.settings.befor_image_label }}"
+    >
+        {{ 
+            section.settings.before_iamge
+        | image_url: width: 1000, height:1000
+        | image_tag: class:'image-comparison-slider__image' 
+         }}
+
+    <div class="beer-reveal" data-beer-label="{{ section.settings.after_image_label }}">
+        {{ 
+            section.settings.after_image
+            | image_url: width: 1000, height:1000 
+            | image_tag: class:'image-comparison-slider__image'
+         }}
+    </div>
+    </div>
+</div>
+
+<script src="{{ 'beer-slider.js' | asset_url }}" defer></script>
+
+<script>
+    function initSlider() {
+        new BeerSlider(document.getElementByI('image-comparison-{{ section.id }}'));
+    }
+
+    window.addEventListener ('DOMContentLoaded', initSlider);
+    {% comment %} document.addEventListener ('shopify:section:load', initSlider); {% endcomment %}
+     document.addEventListener('DOMContentLoaded', function() {
+  new BeerSlider(document.querySelector('.beer-slider'));
+});
+</script>
+
+{% schema %}
+{
+    "name": "Image Comparison",
+    "settings": [
+        {
+            "type": "text",
+            "label": "Title",
+            "id": "title"
+        },
+        {
+            "type": "text",
+            "id": "befor_image_label",
+            "label": "Before Image Label",
+            "default": "Before"
+        },
+        {
+            "type": "image_picker",
+            "id": "before_iamge",
+            "label": "Before Image"
+        },
+        {
+            "type": "text",
+            "id": "after_image_label",
+            "label": "After Image Label",
+            "default": "After"
+        },
+        {
+            "type": "image_picker",
+            "id": "after_image",
+            "label": "After Image"
+        }
+    ],
+    "presets":[
+        {
+          "name": "Image Comparison"
+        }
+    ]
+}
+{% endschema %}
