@@ -212,6 +212,19 @@
                   },
                   "blocks": {}
                 },
+                "review_hrFahW": {
+                  "type": "review",
+                  "name": "t:names.product_review_stars",
+                  "settings": {
+                    "stars_style": "shaded",
+                    "show_number": true,
+                    "rating_color": "primary",
+                    "type_preset": "paragraph",
+                    "width": "100%",
+                    "alignment": "left"
+                  },
+                  "blocks": {}
+                },
                 "price_7bNn3P": {
                   "type": "price",
                   "name": "t:names.product_price",
@@ -219,7 +232,7 @@
                     "show_sale_price_first": true,
                     "show_installments": false,
                     "show_tax_info": false,
-                    "type_preset": "",
+                    "type_preset": "h4",
                     "width": "100%",
                     "alignment": "left",
                     "font": "var(--font-body--family)",
@@ -238,21 +251,9 @@
               },
               "block_order": [
                 "product_title_exPRG9",
+                "review_hrFahW",
                 "price_7bNn3P"
               ]
-            },
-            "review_HJr3Lh": {
-              "type": "review",
-              "name": "t:names.product_review_stars",
-              "settings": {
-                "stars_style": "shaded",
-                "show_number": true,
-                "rating_color": "primary",
-                "type_preset": "paragraph",
-                "width": "100%",
-                "alignment": "left"
-              },
-              "blocks": {}
             },
             "variant_picker_hkzRtF": {
               "type": "variant-picker",
@@ -410,7 +411,6 @@
           },
           "block_order": [
             "group_aaWAmV",
-            "review_HJr3Lh",
             "variant_picker_hkzRtF",
             "buy_buttons_qAjqcU",
             "accordion_ft4cFY"
