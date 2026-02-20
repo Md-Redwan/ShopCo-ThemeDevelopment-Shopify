@@ -1,0 +1,252 @@
+{% assign product = all_products[section.settings.product] %}
+
+{% if product != blank %}
+<section class="custom-featured-product">
+  <div class="container">
+    
+    <!-- LEFT: PRODUCT GALLERY -->
+    <div class="gallery">
+      
+      <div class="main-image">
+        <img 
+          id="main-image"
+          src="{{ product.featured_image | image_url: width: 800 }}" 
+          alt="{{ product.title }}"
+          width="800"
+          height="800"
+        >
+      </div>
+
+      {% if product.media.size > 1 %}
+      <div class="thumbnails">
+        {% for media in product.media %}
+          <img 
+            class="thumb {% if forloop.first %}active{% endif %}"
+            src="{{ media | image_url: width: 150 }}"
+            data-image="{{ media | image_url: width: 800 }}"
+            alt="{{ product.title }}"
+            width="150"
+            height="150"
+          >
+        {% endfor %}
+        
+      </div>
+      {% endif %}
+      
+    </div>
+
+    <!-- RIGHT: PRODUCT DETAILS -->
+    <div class="details">
+
+      <h2 class="title">{{ product.title }}</h2>
+
+      <!-- REVIEW STARS -->
+      {% if product.metafields.reviews.rating.value != blank %}
+        <div class="reviews">
+          ⭐ {{ product.metafields.reviews.rating.value }} / 5
+        </div>
+      {% endif %}
+
+      <!-- PRICE -->
+      <div class="price">
+        {% if product.compare_at_price > product.price %}
+          <span class="compare">{{ product.compare_at_price | money }}</span>
+        {% endif %}
+        <span class="current">{{ product.price | money }}</span>
+      </div>
+
+      <!-- PRODUCT FORM -->
+      {% form 'product', product %}
+        
+        <!-- VARIANT SELECT -->
+        {% unless product.has_only_default_variant %}
+          <select name="id" class="variant-select">
+            {% for variant in product.variants %}
+              <option value="{{ variant.id }}">
+                {{ variant.title }} - {{ variant.price | money }}
+              </option>
+            {% endfor %}
+          </select>
+        {% else %}
+          <input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
+        {% endunless %}
+
+        <!-- PURCHASE OPTIONS -->
+        {% if product.requires_selling_plan %}
+          <div class="purchase-options">
+            {{ form | payment_terms }}
+          </div>
+        {% endif %}
+
+        <!-- ADD TO CART -->
+        <button type="submit" class="add-to-cart">
+          Add to Cart
+        </button>
+
+      {% endform %}
+
+      <!-- ACCORDIONS -->
+      <div class="accordion">
+        
+        <div class="accordion-item">
+          <button class="accordion-header">Key Benefits</button>
+          <div class="accordion-content">
+            {{ section.settings.key_benefits }}
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header">Description</button>
+          <div class="accordion-content">
+            {{ product.description }}
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+.custom-featured-product {
+  padding: 60px 20px;
+}
+
+.container {
+  display: flex;
+  gap: 50px;
+  max-width: 1200px;
+  margin: auto;
+  flex-wrap: wrap;
+}
+
+.gallery {
+  flex: 1;
+  min-width: 300px;
+}
+
+.main-image img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.thumbnails {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.thumb {
+  width: 70px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 5px;
+}
+
+.thumb.active {
+  border-color: black;
+}
+
+.details {
+  flex: 1;
+  min-width: 300px;
+}
+
+.title {
+
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.reviews {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.price {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.compare {
+  text-decoration: line-through;
+  margin-right: 10px;
+  color: gray;
+}
+
+.add-to-cart {
+  background: black;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.accordion-item {
+  border-top: 1px solid #ddd;
+  margin-top: 20px;
+}
+
+.accordion-header {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 15px 0;
+  text-align: left;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.accordion-content {
+  display: none;
+  padding-bottom: 15px;
+  font-size: 14px;
+}
+</style>
+
+<script>
+document.querySelectorAll('.thumb').forEach(thumb => {
+  thumb.addEventListener('click', function() {
+    document.getElementById('main-image').src = this.dataset.image;
+    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+document.querySelectorAll('.accordion-header').forEach(header => {
+  header.addEventListener('click', function() {
+    const content = this.nextElementSibling;
+    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+  });
+});
+</script>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Custom Featured Product",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Select Product"
+    },
+    {
+      "type": "richtext",
+      "id": "key_benefits",
+      "label": "Key Benefits",
+      "default": "<p>Add product benefits here.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Featured Product"
+    }
+  ]
+}
+{% endschema %}
