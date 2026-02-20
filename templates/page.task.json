@@ -108,7 +108,7 @@
             "video_loop": false,
             "hide_variants": true,
             "icons_style": "arrow",
-            "slideshow_controls_style": "counter",
+            "slideshow_controls_style": "thumbnails",
             "slideshow_mobile_controls_style": "dots",
             "thumbnail_position": "bottom",
             "thumbnail_width": 44,
@@ -303,19 +303,123 @@
                 }
               },
               "block_order": []
+            },
+            "accordion_ft4cFY": {
+              "type": "accordion",
+              "name": "t:names.accordion",
+              "settings": {
+                "icon": "plus",
+                "dividers": true,
+                "type_preset": "h4",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_ApdmPM": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Key Benefits",
+                    "open_by_default": true,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_mwAf7K": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<h5>1. ✅ Professional & Polished Look</h5><p>Provides a clean, sharp appearance suitable for office wear, meetings, and formal occasions.</p><h5>2. 🌦️ All-Season Versatility</h5><p>Offers extra coverage in cooler weather while remaining breathable in warmer conditions (when made with cotton or linen blends).</p><h5>3. ☀️ Sun Protection</h5><p>Protects arms from direct sunlight, reducing UV exposure during outdoor activities.</p><h5>4. 🎯 Smart-Casual Flexibility</h5><p>Can be styled for:</p><ul><li>Formal events (with blazer & tie)<br/></li><li>Business casual (with chinos)<br/></li><li>Casual outings (rolled sleeves with jeans)</li></ul>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_mwAf7K"
+                  ]
+                },
+                "accordion_row_wwzc3Q": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Description",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_A8RpiX": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Our products are manufactured both locally and globally. We carefully select our manufacturing partners to ensure our products are high quality and a fair value.</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_A8RpiX"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_ApdmPM",
+                "accordion_row_wwzc3Q"
+              ]
             }
           },
           "block_order": [
             "group_aaWAmV",
             "review_HJr3Lh",
             "variant_picker_hkzRtF",
-            "buy_buttons_qAjqcU"
+            "buy_buttons_qAjqcU",
+            "accordion_ft4cFY"
           ]
         }
       },
       "name": "t:names.featured_product_information",
       "settings": {
-        "product": "",
+        "product": "full-sleeve-shirt",
         "content_width": "content-center-aligned",
         "desktop_media_position": "left",
         "equal_columns": true,
