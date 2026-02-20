@@ -375,7 +375,7 @@
                     "text_A8RpiX": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>Our products are manufactured both locally and globally. We carefully select our manufacturing partners to ensure our products are high quality and a fair value.</p>",
+                        "text": "<ul><li>Product Type: Casual Shirt</li><li>Main Material: Cotton</li><li>Gender: Men</li><li>Stylish and fashionable</li><li>Perfect Fitting</li><li>Collection for Men</li><li>Comfortable to wear</li><li>Perfect for any Occasion</li><li>Size M L XL XXLM-length;28.''chest;39''L- length: 29\", chest; 41''XL-length: 30\", chest; 43'</li></ul>",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
