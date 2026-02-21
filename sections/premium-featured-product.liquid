@@ -1,0 +1,268 @@
+{% assign product = all_products[section.settings.product] %}
+{% if product %}
+
+<section class="">
+  <div class="wrapper">
+
+    <!-- LEFT: IMAGE GALLERY -->
+    <div class="gallery">
+      <div class="main">
+        <img id="main-image"
+          src="{{ product.featured_image | image_url: width: 900 }}"
+          alt="{{ product.title }}"
+          width="900"
+          height="900">
+      </div>
+
+      {% if product.media.size > 1 %}
+      <div class="thumbs">
+        {% for media in product.media %}
+          <img
+            class="thumb {% if forloop.first %}active{% endif %}"
+            src="{{ media | image_url: width: 150 }}"
+            data-img="{{ media | image_url: width: 900 }}"
+            width="150"
+            height="150">
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- RIGHT: PRODUCT INFO -->
+    <div class="info">
+
+      <h2 class="title">{{ product.title }}</h2>
+
+      <!-- Reviews -->
+      {% if product.metafields.reviews.rating.value %}
+      <div class="rating">
+        ★★★★★
+        <span>{{ product.metafields.reviews.rating.value }} / 5</span>
+      </div>
+      {% endif %}
+
+      <!-- Price -->
+      <div class="price">
+        <span id="current-price">
+          {{ product.selected_or_first_available_variant.price | money }}
+        </span>
+        <span id="compare-price" class="compare">
+          {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+            {{ product.selected_or_first_available_variant.compare_at_price | money }}
+          {% endif %}
+        </span>
+      </div>
+
+      {% form 'product', product, id: 'product-form' %}
+
+      <!-- PURCHASE OPTIONS -->
+      {% if product.selling_plan_groups.size > 0 %}
+      <div class="purchase-box">
+        <label class="purchase-option active">
+          <input type="radio" name="purchase_type" value="onetime" checked>
+          One-time purchase
+        </label>
+
+        <label class="purchase-option">
+          <input type="radio" name="purchase_type" value="subscription">
+          Subscribe & Save
+        </label>
+      </div>
+
+      <div id="selling-plan-container" style="display:none;">
+        <select name="selling_plan">
+          {% for group in product.selling_plan_groups %}
+            {% for plan in group.selling_plans %}
+              <option value="{{ plan.id }}">
+                {{ plan.name }}
+              </option>
+            {% endfor %}
+          {% endfor %}
+        </select>
+      </div>
+      {% endif %}
+
+      <!-- VARIANT PACKAGE SELECTOR -->
+      <div class="variants">
+        {% for variant in product.variants %}
+          <button type="button"
+            class="variant-btn {% if forloop.first %}active{% endif %}"
+            data-id="{{ variant.id }}"
+            data-price="{{ variant.price }}"
+            data-compare="{{ variant.compare_at_price }}">
+            {{ variant.title }}
+          </button>
+        {% endfor %}
+      </div>
+
+      <input type="hidden" name="id"
+        value="{{ product.selected_or_first_available_variant.id }}"
+        id="variant-id">
+
+      <!-- ADD TO CART -->
+      <button type="submit" class="atc">
+        Add to Cart
+      </button>
+
+      {% endform %}
+
+      <!-- BENEFITS -->
+      <ul class="benefits">
+        <li>✔ 60-Day money back guarantee</li>
+        <li>✔ Free shipping over $50</li>
+        <li>✔ Secure checkout</li>
+      </ul>
+
+      <!-- ACCORDION -->
+      <div class="accordion">
+
+        <div class="acc-item">
+          <button class="acc-head">Key Ingredients</button>
+          <div class="acc-body">
+            {{ section.settings.key_ingredients }}
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-head">Key Benefits</button>
+          <div class="acc-body">
+            {{ section.settings.key_benefits }}
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-head">Description</button>
+          <div class="acc-body">
+            {{ product.description }}
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+. { padding:60px 20px; }
+.wrapper { display:flex; gap:60px; max-width:1200px; margin:auto; flex-wrap:wrap; }
+.gallery, .info { flex:1; min-width:300px; }
+
+.main img { width:100%; border-radius:12px; }
+
+.thumbs { display:flex; gap:10px; margin-top:15px; }
+.thumb { width:70px; cursor:pointer; border-radius:8px; border:2px solid transparent; }
+.thumb.active { border-color:#6a5cff; }
+
+.title { font-size:28px; margin-bottom:10px; }
+
+.rating { color:#f5a623; margin-bottom:10px; }
+
+.price { font-size:24px; margin-bottom:20px; }
+.compare { text-decoration:line-through; color:#999; margin-left:10px; }
+
+.purchase-box { border:1px solid #ddd; border-radius:10px; overflow:hidden; margin-bottom:15px; }
+.purchase-option { display:block; padding:12px; cursor:pointer; border-bottom:1px solid #eee; }
+.purchase-option:last-child { border-bottom:none; }
+.purchase-option.active { background:#f6f4ff; border-left:4px solid #6a5cff; }
+
+.variants { display:flex; gap:10px; margin:15px 0; flex-wrap:wrap; }
+.variant-btn {
+  padding:10px 18px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  background:#fff;
+  cursor:pointer;
+}
+.variant-btn.active {
+  border-color:#6a5cff;
+  background:#f6f4ff;
+}
+
+.atc {
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  font-weight:600;
+  color:#fff;
+  background:linear-gradient(90deg,#6a5cff,#8f7bff);
+  cursor:pointer;
+}
+
+.benefits { margin:20px 0; padding-left:0; list-style:none; }
+.benefits li { margin-bottom:8px; font-size:14px; }
+
+.acc-item { border-top:1px solid #ddd; }
+.acc-head {
+  width:100%; padding:15px 0;
+  background:none; border:none;
+  font-weight:600; text-align:left;
+  cursor:pointer;
+}
+.acc-body { display:none; padding-bottom:15px; font-size:14px; }
+
+@media(max-width:768px){
+  .wrapper { flex-direction:column; }
+}
+</style>
+
+<script>
+document.querySelectorAll('.thumb').forEach(t=>{
+  t.addEventListener('click',function(){
+    document.getElementById('main-image').src=this.dataset.img;
+    document.querySelectorAll('.thumb').forEach(x=>x.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+document.querySelectorAll('.variant-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.variant-btn').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+
+    document.getElementById('variant-id').value=this.dataset.id;
+
+    document.getElementById('current-price').innerText =
+      Shopify.formatMoney(this.dataset.price);
+
+    if(this.dataset.compare && this.dataset.compare > this.dataset.price){
+      document.getElementById('compare-price').innerText =
+        Shopify.formatMoney(this.dataset.compare);
+    } else {
+      document.getElementById('compare-price').innerText='';
+    }
+  });
+});
+
+document.querySelectorAll('.acc-head').forEach(head=>{
+  head.addEventListener('click',function(){
+    const body=this.nextElementSibling;
+    body.style.display = body.style.display==='block'?'none':'block';
+  });
+});
+
+document.querySelectorAll('input[name="purchase_type"]').forEach(r=>{
+  r.addEventListener('change',function(){
+    document.getElementById('selling-plan-container').style.display =
+      this.value==='subscription'?'block':'none';
+  });
+});
+</script>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Premium Featured Product",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Select product" },
+    { "type": "richtext", "id": "key_ingredients", "label": "Key Ingredients" },
+    { "type": "richtext", "id": "key_benefits", "label": "Key Benefits" }
+  ],
+  "presets": [
+    { "name": "Premium Featured Product" }
+  ]
+}
+{% endschema %}
