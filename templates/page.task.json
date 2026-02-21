@@ -91,10 +91,19 @@
         "padding-block-start": 40,
         "padding-block-end": 40
       }
+    },
+    "custom_featured_product_9iGkRx": {
+      "type": "custom-featured-product",
+      "name": "Custom Featured Product",
+      "settings": {
+        "product": "full-sleeve-shirt",
+        "key_benefits": "<p>Add product benefits here.</p>"
+      }
     }
   },
   "order": [
     "main",
-    "hero_X7qVWK"
+    "hero_X7qVWK",
+    "custom_featured_product_9iGkRx"
   ]
 }
